@@ -912,9 +912,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snake
       objectReference: {fileID: 0}
-    - target: {fileID: 4662039001939815470, guid: 42c6eb303e436ca4f984bc9fae3666b5, type: 3}
-      propertyPath: m_Radius
-      value: 0.9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42c6eb303e436ca4f984bc9fae3666b5, type: 3}
