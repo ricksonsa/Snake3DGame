@@ -125,8 +125,16 @@ public class PlayerControllerScript : MonoBehaviour
 
         if(_createNodeAtTail)
         {
-
+            _createNodeAtTail = false;
+            CreateNode();
         }
+    }
+
+    private void CreateNode()
+    {
+        GameObject newNode = Instantiate(_tail, _nodes[_nodes.Count - 1].position, Quaternion.identity);
+        newNode.transform.SetParent(transform, true);
+        _nodes.Add(newNode.GetComponent<Rigidbody>());
     }
 
     void CheckMovementFrequency()
@@ -157,5 +165,22 @@ public class PlayerControllerScript : MonoBehaviour
         _counter = 0;
         _canMove = false;
         Move();
+    }
+
+    private void OnTriggerEnter(Collider target)
+    {
+        if(target.CompareTag(TagConstants.FRUIT))
+        {
+            target.gameObject.SetActive(false);
+            _createNodeAtTail = true;
+            GameplayControllerScript.instance.IncreaseScore();
+            AudioControllerScript.instance.Play_PickUpSound();
+        }
+
+        if (target.CompareTag(TagConstants.WALL) || target.CompareTag(TagConstants.BOMB) || target.CompareTag(TagConstants.TAIL))
+        {
+            Time.timeScale = 0f;
+            AudioControllerScript.instance.Play_DeadSound();
+        }
     }
 }
